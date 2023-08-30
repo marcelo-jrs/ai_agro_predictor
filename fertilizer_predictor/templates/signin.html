@@ -1,0 +1,33 @@
+{% extends 'partials/menu.html' %}
+
+{% block content %}
+
+<div class="container">
+    <div class="card m-5" style="width: 1000px;">
+        <div class="card-body">
+            <div class="col text-center">
+                <h3 class="mb-3">Login</h3>
+                {% load static %}
+                <img src="{% static 'images/plant.png' %}" alt="" style="width: 200px; height: 200px;">
+            </div>
+            <div class="col">
+                <form method="POST" action="">
+                    {{ error }}
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Nome de usuário</label>
+                        <input type="username" class="form-control" name="username" id="username" aria-describedby="usernameHelp" style="width: 625px;">
+                    </div>
+                    <div class="mb-3">
+                        <label for="senha" class="form-label">Senha</label>
+                        <input type="password" class="form-control" name="senha" id="senha" style="width: 625px;">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Entrar</button>
+                    <a class="btn btn-primary" href="/cadastro">Cadastrar</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
