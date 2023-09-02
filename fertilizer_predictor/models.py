@@ -20,4 +20,4 @@ class Resultado(models.Model):
     tipo_fertilizante = models.IntegerField()
     data = models.DateField()
     description = models.TextField()
-    id_instancia = models.ForeignKey(Instancia, on_delete=models.CASCADE)       
+    id_instancia = models.ForeignKey(Instancia, on_delete=models.CASCADE)
