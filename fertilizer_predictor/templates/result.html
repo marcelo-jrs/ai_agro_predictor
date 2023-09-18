@@ -2,6 +2,11 @@
 
 {% block content %}
 
-<h1 class="m-5">RESULTS HERE</h1>
+
+<div class="container m-5">
+    <h1 class="m-5">{{ resultado.tipo_fertilizante }}</h1>
+    <p class="m-5">{{ resultado.id_descricao.descricao|linebreaks }}</p>
+</div>
+
 
 {% endblock %}

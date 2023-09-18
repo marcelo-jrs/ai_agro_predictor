@@ -24,5 +24,5 @@ urlpatterns = [
     path('entrar/', views.signin, name='signin'),
     path('sair/', views.signout, name='signout'),
     path('predict/', views.predictor, name='predictor'),
-    path('result/', views.result, name='result'),
+    path('result/<int:id_resultado>/', views.result, name='result'),
 ]

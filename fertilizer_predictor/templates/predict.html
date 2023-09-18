@@ -13,59 +13,59 @@
                         {% csrf_token %}
                         <div class="mb-3">
                             <label for="nome_instancia" class="form-label">Nome da Instância</label>
-                            <input type="text" class="form-control" name="nome_instancia" id="nome_instancia" style="width: 625px;">
+                            <input type="number" class="form-control" name="nome_instancia" id="nome_instancia" style="width: 625px;">
                         </div>
                         <div class="mb-3">
                             <label for="temperatura" class="form-label">Temperatura</label>
-                            <input type="text" class="form-control" name="temperatura" id="temperatura" style="width: 625px;">
+                            <input type="number" class="form-control" name="temperatura" id="temperatura" style="width: 625px;">
                         </div>
                         <div class="mb-3">
                             <label for="umidade_ar" class="form-label">Umidade do Ar</label>
-                            <input type="text" class="form-control" name="umidade_ar" id="umidade_ar" style="width: 625px;">
+                            <input type="number" class="form-control" name="umidade_ar" id="umidade_ar" style="width: 625px;">
                         </div>
                         <div class="mb-3">
                             <label for="umidade_solo" class="form-label">Umidadade do Solo</label>
-                            <input type="text" class="form-control" name="umidade_solo" id="umidade_solo" style="width: 625px;">
+                            <input type="number" class="form-control" name="umidade_solo" id="umidade_solo" style="width: 625px;">
                         </div>
                         <div class="mb-3">
                             <label for="tipo_solo" class="form-label">Tipo de Solo</label>
                             <select class="form-select" aria-label="Default select example" style="width: 624px;" name="tipo_solo" id="tipo_solo">
                                 <option selected>Abra para selecionar</option>
-                                <option value="1">Barrento</option>
-                                <option value="2">Arenoso</option>
-                                <option value="3">Argiloso</option>
-                                <option value="4">Preto</option>
-                                <option value="5">Vermelho</option>
+                                <option value="0">Barrento</option>
+                                <option value="1">Arenoso</option>
+                                <option value="2">Argiloso</option>
+                                <option value="3">Preto</option>
+                                <option value="4">Vermelho</option>
                             </select>
                         </div>
                         <div class="mb-3">
                             <label for="tipo_cultura" class="form-label">Tipo de Cultura</label>
                             <select class="form-select" aria-label="Default select example" style="width: 624px;" name="tipo_cultura" id="tipo_cultura">
                                 <option selected>Abra para selecionar</option>
-                                <option value="1">Cana-de-açúcar</option>
-                                <option value="2">Algodão</option>
-                                <option value="3">Arroz</option>
-                                <option value="4">Milho</option>
-                                <option value="5">Tabaco</option>
-                                <option value="6">Cevada</option>
-                                <option value="7">Trigo</option>
-                                <option value="8">Painço</option>
-                                <option value="9">Sementes para óleo</option>
-                                <option value="10">Sementes de leguminosas</option>
-                                <option value="11">Nozes</option>
+                                <option value="0">Cana-de-açúcar</option>
+                                <option value="1">Algodão</option>
+                                <option value="2">Arroz</option>
+                                <option value="3">Milho</option>
+                                <option value="4">Tabaco</option>
+                                <option value="5">Cevada</option>
+                                <option value="6">Trigo</option>
+                                <option value="7">Painço</option>
+                                <option value="8">Sementes para óleo</option>
+                                <option value="9">Sementes de leguminosas</option>
+                                <option value="10">Nozes</option>
                             </select>
                         </div>
                         <div class="mb-3">
                             <label for="nitrogenio" class="form-label">Nitrogênio</label>
-                            <input type="range" class="form-range" min="0" max="5" name="nitrogenio" id="nitrogenio">
+                            <input type="number" class="form-control"  name="nitrogenio" id="nitrogenio">
                         </div>
                         <div class="mb-3">
                             <label for="fosforo" class="form-label">Fósforo</label>
-                            <input type="range" class="form-range" min="0" max="5" name="fosforo" id="fosforo">
+                            <input type="number" class="form-control"  name="fosforo" id="fosforo">
                         </div>
                         <div class="mb-3">
                             <label for="potassio" class="form-label">Potássio</label>
-                            <input type="range" class="form-range" min="0" max="5" name="potassio" id="potassio">
+                            <input type="number" class="form-control"  name="potassio" id="potassio">
                         </div>
                         <button type="submit" class="btn btn-primary">Cadastrar</button>
                     </form>
