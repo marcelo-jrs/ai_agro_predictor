@@ -1,11 +1,12 @@
 from datetime import date
-from django.shortcuts import redirect, render, get_object_or_404
+from django.shortcuts import redirect, render
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import login, logout, authenticate
 import pandas as pd
 import pickle
 from .models import Instancia, Resultado, Descricao
+from django.core.paginator import Paginator
 
 # Create your views here.
 
@@ -114,25 +115,47 @@ def predict_fertilizer(instancia):
 
     return resultado
 
+from .forms import ParametrosForm
 
 def predictor(request):
-    if request.method == 'GET':
-        return render(request, 'predict.html')
-    elif request.method == 'POST':
-        instancia = Instancia()
-        instancia.nome_instancia = request.POST['nome_instancia']
-        instancia.temperatura = request.POST['temperatura']
-        instancia.umidade_ar = request.POST['umidade_ar']
-        instancia.umidade_solo = request.POST['umidade_solo']
-        instancia.tipo_solo = request.POST['tipo_solo']
-        instancia.tipo_cultura = request.POST['tipo_cultura']
-        instancia.nitrogenio = request.POST['nitrogenio']
-        instancia.potassio = request.POST['potassio']
-        instancia.fosforo = request.POST['fosforo']
-        instancia.id_usuario = request.user
+    if request.method == 'POST':
+        form = ParametrosForm(request.POST)
+        if form.is_valid():
+            instancia = Instancia(
+                nome_instancia=form.cleaned_data['nome_instancia'],
+                temperatura=form.cleaned_data['temperatura'],
+                umidade_ar=form.cleaned_data['umidade_ar'],
+                umidade_solo=form.cleaned_data['umidade_solo'],
+                tipo_solo=form.cleaned_data['tipo_solo'],
+                tipo_cultura=form.cleaned_data['tipo_cultura'],
+                nitrogenio=form.cleaned_data['nitrogenio'],
+                fosforo=form.cleaned_data['fosforo'],
+                potassio=form.cleaned_data['potassio'],
+                id_usuario=request.user,
+                data=date.today()
+            )
+            instancia.save()
+            resultado = predict_fertilizer(instancia)
+            return result(request, resultado.id_resultado)
+    else:
+        form = ParametrosForm()
+        lista_instancia = Instancia.objects.filter(id_usuario=request.user)
 
-        instancia.save()
+        p = Paginator(lista_instancia, 7)
+        page = request.GET.get('page')
+        instancias = p.get_page(page)
 
-        resultado = predict_fertilizer(instancia)
+        return render(request, 'predict.html', {'form': form, 'lista_instancia': lista_instancia, 'instancias': instancias})
 
-        return result(request, resultado.id_resultado)
+    
+def history(request):
+    if request.user.is_authenticated:
+        lista_instancia = Instancia.objects.filter(id_usuario=request.user)
+        for i in lista_instancia:
+            resultados = Resultado.objects.filter(id_instancia=i)
+
+        p = Paginator(lista_instancia, 7)
+        page = request.GET.get('page')
+        instancias = p.get_page(page)
+
+        return render(request, 'history.html', {'lista_instancia': lista_instancia, 'instancias': instancias})

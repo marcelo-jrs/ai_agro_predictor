@@ -1,3 +1,4 @@
+from datetime import date
 from django.db import models
 from django.contrib.auth.models import User
 
@@ -14,6 +15,7 @@ class Instancia(models.Model):
     potassio = models.IntegerField()
     fosforo = models.IntegerField()
     id_usuario = models.ForeignKey(User, on_delete=models.CASCADE)
+    data = models.DateField(default=date.today)
 
 class Descricao(models.Model):
     id_descricao = models.AutoField(primary_key=True)

@@ -23,6 +23,7 @@ urlpatterns = [
     path('cadastro/', views.signup, name='signup'),
     path('entrar/', views.signin, name='signin'),
     path('sair/', views.signout, name='signout'),
-    path('predict/', views.predictor, name='predictor'),
-    path('result/<int:id_resultado>/', views.result, name='result'),
+    path('recomendar/', views.predictor, name='predictor'),
+    path('resultado/<int:id_resultado>/', views.result, name='result'),
+    path('historico/', views.history, name='history'),
 ]
