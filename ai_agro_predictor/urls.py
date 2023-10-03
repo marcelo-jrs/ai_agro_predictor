@@ -23,7 +23,8 @@ urlpatterns = [
     path('cadastro/', views.signup, name='signup'),
     path('entrar/', views.signin, name='signin'),
     path('sair/', views.signout, name='signout'),
-    path('recomendar/', views.predictor, name='predictor'),
+    path('criar_instancia/', views.create_instancia, name='create_instancia'),
+    path('editar_instancia/<int:id_instancia>/', views.edit_instancia, name='edit_instancia'),
     path('resultado/<int:id_resultado>/', views.result, name='result'),
     path('historico/', views.history, name='history'),
 ]

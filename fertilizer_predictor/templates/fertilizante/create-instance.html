@@ -28,7 +28,7 @@
                     <p>{{i.data}}</p>
                 </div>
                 <div class="btn-group">
-                    <a href="" class="btn btn-primary">Abrir</a>
+                    <a href="{% url 'edit_instancia' i.id_instancia %}" class="btn btn-primary">Abrir</a>
                 </div>
             </div>
             {% endfor %}

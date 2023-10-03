@@ -34,3 +34,19 @@ class ParametrosForm(forms.Form):
     nitrogenio = forms.DecimalField(label='Nitrogênio', widget=forms.NumberInput(attrs={'class': 'form-control'}))
     fosforo = forms.DecimalField(label='Fósforo', widget=forms.NumberInput(attrs={'class': 'form-control'}))
     potassio = forms.DecimalField(label='Potássio', widget=forms.NumberInput(attrs={'class': 'form-control'}))
+
+    
+    def __init__(self, *args, **kwargs):
+        instance = kwargs.pop('instance', None)
+        super(ParametrosForm, self).__init__(*args, **kwargs)
+        
+        if instance:
+            self.fields['nome_instancia'].initial = instance.nome_instancia
+            self.fields['temperatura'].initial = instance.temperatura
+            self.fields['umidade_ar'].initial = instance.umidade_ar
+            self.fields['umidade_solo'].initial = instance.umidade_solo
+            self.fields['tipo_solo'].initial = instance.tipo_solo
+            self.fields['tipo_cultura'].initial = instance.tipo_cultura
+            self.fields['nitrogenio'].initial = instance.nitrogenio
+            self.fields['fosforo'].initial = instance.fosforo
+            self.fields['potassio'].initial = instance.potassio
