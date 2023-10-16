@@ -13,12 +13,13 @@
                         {{ form.as_p }}
                         <br>
                         <br>
-                        <button type="submit" class="btn btn-primary">Cadastrar</button>
+                        <button type="submit" class="btn btn-primary">Gerar Resultado</button>
                     </form>
                 </div>
             </div>
         </div>
     </div>
+    {% if instancias %}
     <div class="card m-3" style="display: flex; flex-direction: column; width: 400px;">
         <div class="card-body">
             {% for i in instancias %}
@@ -34,11 +35,11 @@
             {% endfor %}
             <nav aria-label="Page navigation">
                 <ul class="pagination justify-content-center">
-                    <li class="page-item">
-                        {% if instancias.has_previous %}
+                    {% if instancias.has_previous %}
+                    <li class="page-item"></li>
                         <a class="page-link" href="?page={{instancias.previous_page_number}}">Anterior</a>
-                        {% endif %}
                     </li>
+                    {% endif %}
                     {% for page in instancias.paginator.page_range %}
                     <li class="page-item {% if page == instancias.number %}active{% endif %}"><a class="page-link" href="?page={{ page }}">{{ page }}</a></li>
                     {% endfor %}
@@ -50,6 +51,9 @@
             </nav>
         </div>
     </div>
+    {% else %}
+    <span></span>
+    {% endif %}
 </div>
 
 {% endblock %}

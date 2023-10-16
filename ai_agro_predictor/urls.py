@@ -27,4 +27,7 @@ urlpatterns = [
     path('editar_instancia/<int:id_instancia>/', views.edit_instancia, name='edit_instancia'),
     path('resultado/<int:id_resultado>/', views.result, name='result'),
     path('historico/', views.history, name='history'),
+    path('criar_instancia_crop/', views.create_instancia_crop, name='create_instancia_crop'),
+    path('editar_instancia_crop/<int:id_instancia>/', views.edit_instancia_crop, name='edit_instancia_crop'),
+    path('historico_crop/', views.history_crop, name='history_crop'),
 ]

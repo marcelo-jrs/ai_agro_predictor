@@ -29,3 +29,29 @@ class Resultado(models.Model):
     id_descricao = models.ForeignKey(Descricao, on_delete=models.CASCADE, default=1)
     id_instancia = models.ForeignKey(Instancia, on_delete=models.CASCADE)
 
+
+class InstanciaCrop(models.Model):
+    id_instancia = models.AutoField(primary_key=True)
+    nome_instancia = models.TextField()
+    temperatura = models.FloatField()
+    umidade = models.FloatField()
+    nitrogenio = models.IntegerField()
+    potassio = models.IntegerField()
+    fosforo = models.IntegerField()
+    ph = models.FloatField()
+    chuva = models.FloatField()
+    id_usuario = models.ForeignKey(User, on_delete=models.CASCADE)
+    data = models.DateField(default=date.today)
+
+class DescricaoCrop(models.Model):
+    id_descricao = models.AutoField(primary_key=True)
+    id_fertilizante = models.IntegerField()
+    descricao = models.TextField()
+
+class ResultadoCrop(models.Model):
+    id_resultado = models.AutoField(primary_key=True)
+    tipo_fertilizante = models.TextField()
+    data = models.DateField(default=date.today)
+    id_descricao = models.ForeignKey(DescricaoCrop, on_delete=models.CASCADE, default=1)
+    id_instancia = models.ForeignKey(InstanciaCrop, on_delete=models.CASCADE)
+

@@ -4,6 +4,10 @@
 <div class="container m-5" style="display: flex; flex-direction: column; align-items: center;">
     {% if user.is_authenticated %}
         <h1 class="mb-5">Histórico de recomendação</h1>
+        <div class="btn-group">
+            <a href="#" class="btn btn-primary active">Fertilizante</a>
+            <a href="#" class="btn btn-primary">Cultura</a>
+          </div>
         {% for i in instancias %}
             <div class="card m-3" style="width: 1000px; display: flex; flex-direction: row;">
                 <div class="card-body" style="display: flex; flex-direction: row; justify-content: space-between; align-items: center;">
@@ -22,11 +26,11 @@
     <br>
     <nav aria-label="Page navigation">
         <ul class="pagination justify-content-center">
-            <li class="page-item">
                 {% if instancias.has_previous %}
-                <a class="page-link" href="?page={{instancias.previous_page_number}}">Anterior</a>
+                <li class="page-item"></li>
+                    <a class="page-link" href="?page={{instancias.previous_page_number}}">Anterior</a>
+                </li>
                 {% endif %}
-            </li>
             {% for page in instancias.paginator.page_range %}
             <li class="page-item {% if page == instancias.number %}active{% endif %}"><a class="page-link" href="?page={{ page }}">{{ page }}</a></li>
             {% endfor %}

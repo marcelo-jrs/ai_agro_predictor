@@ -1,11 +1,10 @@
 from datetime import date
-from django.shortcuts import get_object_or_404, redirect, render
+from django.shortcuts import redirect, render
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import login, logout, authenticate
 import pandas as pd
-import pickle
-from .models import Instancia, Resultado, Descricao
+from .models import Instancia, Resultado, Descricao, InstanciaCrop
 from django.core.paginator import Paginator
 
 # Create your views here.
@@ -115,7 +114,7 @@ def predict_fertilizer(instancia):
 
     return resultado
 
-from .forms import ParametrosForm
+from .forms import ParametrosForm, ParametrosFormCrop
 
 def create_instancia(request):
     if request.method == 'POST':
@@ -190,3 +189,69 @@ def edit_instancia(request, id_instancia):
         instancias = p.get_page(page)
 
     return render(request, 'fertilizante/update-instance.html', {'form': form, 'instancia': instancia, 'lista_instancia': lista_instancia, 'instancias': instancias})
+
+
+def create_instancia_crop(request):
+    if request.method == 'POST':
+        form = ParametrosFormCrop(request.POST)
+        if form.is_valid():
+            instancia = InstanciaCrop(
+                nome_instancia=form.cleaned_data['nome_instancia'],
+                temperatura=form.cleaned_data['temperatura'],
+                umidade=form.cleaned_data['umidade'],
+                nitrogenio=form.cleaned_data['nitrogenio'],
+                fosforo=form.cleaned_data['fosforo'],
+                potassio=form.cleaned_data['potassio'],
+                ph=form.cleaned_data['ph'],
+                chuva=form.cleaned_data['chuva'],
+                id_usuario=request.user,
+                data=date.today()
+            )
+            instancia.save()
+    else:
+        form = ParametrosFormCrop()
+        lista_instancia = InstanciaCrop.objects.filter(id_usuario=request.user)
+
+        p = Paginator(lista_instancia, 7)
+        page = request.GET.get('page')
+        instancias = p.get_page(page)
+
+        return render(request, 'crop/create-instance-crop.html', {'form': form, 'lista_instancia': lista_instancia, 'instancias': instancias})
+
+def history_crop(request):
+    if request.user.is_authenticated:
+        lista_instancia = InstanciaCrop.objects.filter(id_usuario=request.user)
+
+        p = Paginator(lista_instancia, 7)
+        page = request.GET.get('page')
+        instancias = p.get_page(page)
+
+        return render(request, 'history.html', {'lista_instancia': lista_instancia, 'instancias': instancias})
+
+def edit_instancia_crop(request, id_instancia):
+    instancia = InstanciaCrop.objects.get(id_usuario=request.user, id_instancia=id_instancia)
+    if request.method == 'POST':
+        form = ParametrosFormCrop(request.POST or None, instance=instancia)
+        if form.is_valid():
+            instancia = InstanciaCrop(
+                nome_instancia=form.cleaned_data['nome_instancia'],
+                temperatura=form.cleaned_data['temperatura'],
+                umidade=form.cleaned_data['umidade'],
+                nitrogenio=form.cleaned_data['nitrogenio'],
+                fosforo=form.cleaned_data['fosforo'],
+                potassio=form.cleaned_data['potassio'],
+                ph=form.cleaned_data['ph'],
+                chuva=form.cleaned_data['chuva'],
+                id_usuario=request.user,
+                data=date.today()
+            )
+            instancia.save()
+    else:
+        form = ParametrosFormCrop(instance=instancia)
+        lista_instancia = InstanciaCrop.objects.filter(id_usuario=request.user)
+
+        p = Paginator(lista_instancia, 7)
+        page = request.GET.get('page')
+        instancias = p.get_page(page)
+
+    return render(request, 'crop/update-instance-crop.html', {'form': form, 'instancia': instancia, 'lista_instancia': lista_instancia, 'instancias': instancias})

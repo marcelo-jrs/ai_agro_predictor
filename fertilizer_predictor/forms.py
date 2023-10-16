@@ -50,3 +50,28 @@ class ParametrosForm(forms.Form):
             self.fields['nitrogenio'].initial = instance.nitrogenio
             self.fields['fosforo'].initial = instance.fosforo
             self.fields['potassio'].initial = instance.potassio
+
+class ParametrosFormCrop(forms.Form):
+    nome_instancia = forms.CharField(label='Nome da Instância', max_length=100, widget=forms.TextInput(attrs={'class': 'form-control', 'style': 'width: 625px;'}))
+    temperatura = forms.DecimalField(label='Temperatura', widget=forms.NumberInput(attrs={'class': 'form-control', 'style': 'width: 625px;'}))
+    umidade = forms.DecimalField(label='Umidade', widget=forms.NumberInput(attrs={'class': 'form-control', 'style': 'width: 625px;'}))
+    ph = forms.DecimalField(label='PH', widget=forms.NumberInput(attrs={'class': 'form-control', 'style': 'width: 625px;'}))
+    chuva = forms.DecimalField(label='Chuva', widget=forms.NumberInput(attrs={'class': 'form-control', 'style': 'width: 625px;'}))
+    nitrogenio = forms.DecimalField(label='Nitrogênio', widget=forms.NumberInput(attrs={'class': 'form-control'}))
+    fosforo = forms.DecimalField(label='Fósforo', widget=forms.NumberInput(attrs={'class': 'form-control'}))
+    potassio = forms.DecimalField(label='Potássio', widget=forms.NumberInput(attrs={'class': 'form-control'}))
+
+    
+    def __init__(self, *args, **kwargs):
+        instance = kwargs.pop('instance', None)
+        super(ParametrosFormCrop, self).__init__(*args, **kwargs)
+        
+        if instance:
+            self.fields['nome_instancia'].initial = instance.nome_instancia
+            self.fields['temperatura'].initial = instance.temperatura
+            self.fields['umidade'].initial = instance.umidade
+            self.fields['ph'].initial = instance.ph
+            self.fields['chuva'].initial = instance.chuva
+            self.fields['nitrogenio'].initial = instance.nitrogenio
+            self.fields['fosforo'].initial = instance.fosforo
+            self.fields['potassio'].initial = instance.potassio
