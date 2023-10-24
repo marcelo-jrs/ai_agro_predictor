@@ -72,7 +72,7 @@ def result(request, id_resultado):
     return render(request, 'fertilizante/result.html', {"resultado": resultado})
 
 def predict_fertilizer(instancia):
-    model = pd.read_pickle(r"C:\Users\Usuário\Facul\Estágio\Estagio II\fertilizer-app\notebook_fertilizer_precidtor\classifier.pkl")
+    model = pd.read_pickle(r"C:\Users\Usuário\Facul\Estágio\Estagio II\fertilizer-app\ai_agro_predictor\fertilizer_predictor\classifier\classifier_fert.pkl")
 
     temperatura = instancia.temperatura;
     umidade_ar = instancia.umidade_ar;
@@ -147,36 +147,35 @@ def create_instancia(request):
         return render(request, 'fertilizante/create-instance.html', {'form': form, 'lista_instancia': lista_instancia, 'instancias': instancias})
 
     
-def history(request):
+def history(request, tipo):
     if request.user.is_authenticated:
-        lista_instancia = Instancia.objects.filter(id_usuario=request.user)
-        for i in lista_instancia:
-            resultados = Resultado.objects.filter(id_instancia=i)
+        if tipo == 'fertilizante':
+            lista_instancia = Instancia.objects.filter(id_usuario=request.user)
+            resultados = Resultado.objects.filter()
+        elif tipo == 'cultura':
+            lista_instancia = InstanciaCrop.objects.filter(id_usuario=request.user)
 
         p = Paginator(lista_instancia, 7)
         page = request.GET.get('page')
         instancias = p.get_page(page)
 
-        return render(request, 'history.html', {'lista_instancia': lista_instancia, 'instancias': instancias})
+        return render(request, 'history.html', {'lista_instancia': lista_instancia, 'instancias': instancias, 'resultados': resultados})
     
 def edit_instancia(request, id_instancia):
     instancia = Instancia.objects.get(id_usuario=request.user, id_instancia=id_instancia)
     if request.method == 'POST':
         form = ParametrosForm(request.POST or None, instance=instancia)
         if form.is_valid():
-            instancia = Instancia(
-                nome_instancia=form.cleaned_data['nome_instancia'],
-                temperatura=form.cleaned_data['temperatura'],
-                umidade_ar=form.cleaned_data['umidade_ar'],
-                umidade_solo=form.cleaned_data['umidade_solo'],
-                tipo_solo=form.cleaned_data['tipo_solo'],
-                tipo_cultura=form.cleaned_data['tipo_cultura'],
-                nitrogenio=form.cleaned_data['nitrogenio'],
-                fosforo=form.cleaned_data['fosforo'],
-                potassio=form.cleaned_data['potassio'],
-                id_usuario=request.user,
-                data=date.today()
-            )
+            instancia.nome_instancia = form.cleaned_data['nome_instancia']
+            instancia.temperatura = form.cleaned_data['temperatura']
+            instancia.umidade_ar = form.cleaned_data['umidade_ar']
+            instancia.umidade_solo = form.cleaned_data['umidade_solo']
+            instancia.tipo_solo = form.cleaned_data['tipo_solo']
+            instancia.tipo_cultura = form.cleaned_data['tipo_cultura']
+            instancia.nitrogenio = form.cleaned_data['nitrogenio']
+            instancia.fosforo = form.cleaned_data['fosforo']
+            instancia.potassio = form.cleaned_data['potassio']
+            instancia.data = date.today()
             instancia.save()
             resultado = predict_fertilizer(instancia)
             return result(request, resultado.id_resultado)
@@ -217,16 +216,6 @@ def create_instancia_crop(request):
         instancias = p.get_page(page)
 
         return render(request, 'crop/create-instance-crop.html', {'form': form, 'lista_instancia': lista_instancia, 'instancias': instancias})
-
-def history_crop(request):
-    if request.user.is_authenticated:
-        lista_instancia = InstanciaCrop.objects.filter(id_usuario=request.user)
-
-        p = Paginator(lista_instancia, 7)
-        page = request.GET.get('page')
-        instancias = p.get_page(page)
-
-        return render(request, 'history.html', {'lista_instancia': lista_instancia, 'instancias': instancias})
 
 def edit_instancia_crop(request, id_instancia):
     instancia = InstanciaCrop.objects.get(id_usuario=request.user, id_instancia=id_instancia)

@@ -5,21 +5,27 @@
     {% if user.is_authenticated %}
         <h1 class="mb-5">Histórico de recomendação</h1>
         <div class="btn-group">
-            <a href="#" class="btn btn-primary active">Fertilizante</a>
-            <a href="#" class="btn btn-primary">Cultura</a>
+            <a href="{% url 'history' tipo='fertilizante' %}" class="btn btn-primary" id="fert">Fertilizante</a>
+            <a href="{% url 'history' tipo='cultura' %}" class="btn btn-primary" id="crop">Cultura</a>
           </div>
         {% for i in instancias %}
-            <div class="card m-3" style="width: 1000px; display: flex; flex-direction: row;">
-                <div class="card-body" style="display: flex; flex-direction: row; justify-content: space-between; align-items: center;">
-                    <div class="info">
-                        <h3 class="card-title">{{i.nome_instancia}}</h3>
-                        <p>{{i.data}}</p>
+            {% for r in resultados %}
+                {% if r.id_instancia.id_instancia == i.id_instancia %}
+
+                    <div class="card m-3" style="width: 1000px; display: flex; flex-direction: row;">
+                        <div class="card-body" style="display: flex; flex-direction: row; justify-content: space-between; align-items: center;">
+                            <div class="info">
+                                <h3 class="card-title">{{i.nome_instancia}}</h3>
+                                <p>{{i.data}}</p>
+                                <p>{{ r.tipo_fertilizante }}</p>
+                            </div>
+                            <div class="btn-group">
+                                <a href="{% url 'result' id_resultado=r.id_resultado %}" class="btn btn-primary">Abrir</a>
+                            </div>
+                        </div>
                     </div>
-                    <div class="btn-group">
-                        <a href="" class="btn btn-primary">Abrir</a>
-                    </div>
-                </div>
-            </div>
+                {% endif %}
+            {% endfor %}
         {% endfor %}
     {% endif %}
     <br>
@@ -41,4 +47,25 @@
         </ul>
     </nav>
 </div>
+
+<script>
+    let btnFert = document.querySelector('#fert')
+    let btnCrop = document.querySelector('#crop')
+    let url = window.location.href;
+    let segments = url.split('/');
+    let tipo = segments[segments.length - 2];
+
+    console.log(tipo)
+
+    if (tipo == "fertilizante") {
+        btnFert.classList.add('active')
+        btnCrop.classList.remove('active')
+    }
+
+    if (tipo == "cultura") {
+        btnCrop.classList.add('active')
+        btnFert.classList.remove('active')
+    }
+
+</script>
 {% endblock %}

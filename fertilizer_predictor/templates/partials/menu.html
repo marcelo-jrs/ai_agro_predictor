@@ -27,8 +27,14 @@
               <li class="nav-item">
                 <a class="nav-link" aria-current="page" href="{% url 'create_instancia_crop' %}">Recomendar Cultura</a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'history' %}">Histórico</a>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Histórico
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="{% url 'history' tipo='fertilizante' %}">Fertilizante</a></li>
+                  <li><a class="dropdown-item" href="{% url 'history' tipo='cultura' %}"">Cultura</a></li>
+                </ul>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="{% url 'signin' %}">Login</a>
