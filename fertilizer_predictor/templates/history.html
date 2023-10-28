@@ -1,6 +1,7 @@
 {% extends 'partials/menu.html' %}
 
 {% block content %}
+
 <div class="container m-5" style="display: flex; flex-direction: column; align-items: center;">
     {% if user.is_authenticated %}
         <h1 class="mb-5">Histórico de recomendação</h1>
@@ -11,16 +12,20 @@
         {% for i in instancias %}
             {% for r in resultados %}
                 {% if r.id_instancia.id_instancia == i.id_instancia %}
-
                     <div class="card m-3" style="width: 1000px; display: flex; flex-direction: row;">
                         <div class="card-body" style="display: flex; flex-direction: row; justify-content: space-between; align-items: center;">
                             <div class="info">
                                 <h3 class="card-title">{{i.nome_instancia}}</h3>
                                 <p>{{i.data}}</p>
                                 <p>{{ r.tipo_fertilizante }}</p>
+                                {{r.cultura}}
                             </div>
                             <div class="btn-group">
-                                <a href="{% url 'result' id_resultado=r.id_resultado %}" class="btn btn-primary">Abrir</a>
+                                {% if r.cultura %}
+                                <a href="{% url 'resultCrop' id_resultado=r.id_resultado %}" class="btn btn-primary abrir">Abrir</a>
+                                {% else %}
+                                <a href="{% url 'result' id_resultado=r.id_resultado %}" class="btn btn-primary abrir">Abrir</a>
+                                {% endif %}
                             </div>
                         </div>
                     </div>
@@ -30,22 +35,25 @@
     {% endif %}
     <br>
     <br>
+    {% if pages %}
     <nav aria-label="Page navigation">
         <ul class="pagination justify-content-center">
-                {% if instancias.has_previous %}
+                {% if pages.has_previous %}
                 <li class="page-item"></li>
-                    <a class="page-link" href="?page={{instancias.previous_page_number}}">Anterior</a>
+                    <a class="page-link" href="?page={{pages.previous_page_number}}">Anterior</a>
                 </li>
                 {% endif %}
-            {% for page in instancias.paginator.page_range %}
-            <li class="page-item {% if page == instancias.number %}active{% endif %}"><a class="page-link" href="?page={{ page }}">{{ page }}</a></li>
+            {% for page in pages.paginator.page_range %}
+            <li class="page-item {% if page == pages.number %}active{% endif %}"><a class="page-link" href="?page={{ page }}">{{ page }}</a></li>
             {% endfor %}
-                {% if instancias.has_next %}
-                <a class="page-link" href="?page={{instancias.next_page_number}}">Próximo</a>
+                {% if pages.has_next %}
+                <a class="page-link" href="?page={{pages.next_page_number}}">Próximo</a>
                 {% endif %}
             </li>
         </ul>
     </nav>
+    {% else %}
+    {% endif %}
 </div>
 
 <script>
@@ -54,6 +62,7 @@
     let url = window.location.href;
     let segments = url.split('/');
     let tipo = segments[segments.length - 2];
+    let abrir = document.querySelector('.abrir')
 
     console.log(tipo)
 

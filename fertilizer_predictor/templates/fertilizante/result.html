@@ -4,8 +4,84 @@
 
 
 <div class="container m-5">
-    <h1 class="m-5">{{ resultado.tipo_fertilizante }}</h1>
+    <h1 class="mb-5">Tipo de Fertilizante Recomendado: {{ resultado.tipo_fertilizante }}</h1>
     <p class="m-5">{{ resultado.id_descricao.descricao|linebreaks }}</p>
+    <h1 class="mb-5 mt-5">Dados da Instância</h1>
+    <h4 class="mb-5">Nome da Instância: {{ instance.nome_instancia }}</h4>
+    <div class="container">
+        <table class="table table-success table-striped">
+            <thead>
+              <tr>
+                <th scope="col">Temperatura</th>
+                <th scope="col">Umidade do Ar</th>
+                <th scope="col">Umidade do Solo</th>
+                <th scope="col">Tipo do Solo</th>
+                <th scope="col">Tipo de Cultura</th>
+                <th scope="col">Potássio</th>
+                <th scope="col">Fósforo</th>
+                <th scope="col">Nitrogênio</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>{{ instance.temperatura }}</td>
+                <td>{{ instance.umidade_ar }}</td>
+                <td>{{ instance.umidade_solo }}</td>
+
+                {% if instance.tipo_solo == 0 %}
+                <td>Barrento</td>
+                {% elif instance.tipo_solo == 1 %}
+                <td>Arenoso</td>
+                {% elif instance.tipo_solo == 2 %}
+                <td>Argiloso</td>
+                {% elif instance.tipo_solo == 3 %}
+                <td>Preto</td>
+                {% elif instance.tipo_solo == 4 %}
+                <td>Vermelho</td>
+                {% endif %}
+
+                {% if instance.tipo_cultura == 0 %}
+                <td>Cana-de-Açúcar</td>
+                {% elif instance.tipo_cultura == 1 %}
+                <td>Algodão</td>
+                {% elif instance.tipo_cultura == 2 %}
+                <td>Arroz</td>
+                {% elif instance.tipo_cultura == 3 %}
+                <td>Milho</td>
+                {% elif instance.tipo_cultura == 4 %}
+                <td>Tabaco</td>
+                {% elif instance.tipo_cultura == 5 %}
+                <td>Cevada</td>
+                {% elif instance.tipo_cultura == 6 %}
+                <td>Trigo</td>
+                {% elif instance.tipo_cultura == 7 %}
+                <td>Painço</td>
+                {% elif instance.tipo_cultura == 8 %}
+                <td>Sementes para óleo</td>
+                {% elif instance.tipo_cultura == 9 %}
+                <td>Semente de leguminosas</td>
+                {% elif instance.tipo_cultura == 10 %}
+                <td>Nozes</td>
+                {% endif %}
+
+                <td>{{ instance.nitrogenio }}</td>
+                <td>{{ instance.potassio }}</td>
+                <td>{{ instance.fosforo }}</td>
+              </tr>
+            </tbody>
+          </table>
+    </div>
+    <div class="container">
+        <div class="col">
+            {{ chart_nitro | safe}}
+        </div>
+        <div class="col">
+            {{ chart_potassium | safe}}
+        </div>
+        <div class="col">
+            {{ chart_phosphorous | safe}}
+        </div>
+    </div>
 </div>
 
 

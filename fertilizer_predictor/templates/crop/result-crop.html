@@ -1,0 +1,50 @@
+{% extends 'partials/menu.html' %}
+
+{% block content %}
+
+
+<div class="container m-5">
+    <h1 class="mb-5">Tipo de Cultura Recomendado: {{ resultado.cultura }}</h1>
+    <h1 class="mb-5 mt-5">Dados da Instância</h1>
+    <h4 class="mb-5">Nome da Instância: {{ instance.nome_instancia }}</h4>
+    <div class="container">
+        <table class="table table-success table-striped">
+            <thead>
+              <tr>
+                <th scope="col">Temperatura</th>
+                <th scope="col">Umidade</th>
+                <th scope="col">Ph</th>
+                <th scope="col">Chuva</th>
+                <th scope="col">Potássio</th>
+                <th scope="col">Fósforo</th>
+                <th scope="col">Nitrogênio</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>{{ instance.temperatura }}</td>
+                <td>{{ instance.umidade }}</td>
+                <td>{{ instance.ph }}</td>
+                <td>{{ instance.chuva }}</td>
+                <td>{{ instance.nitrogenio }}</td>
+                <td>{{ instance.potassio }}</td>
+                <td>{{ instance.fosforo }}</td>
+              </tr>
+            </tbody>
+          </table>
+    </div>
+    <div class="container">
+        <div class="col">
+            {{ chart_nitro | safe}}
+        </div>
+        <div class="col">
+            {{ chart_potassium | safe}}
+        </div>
+        <div class="col">
+            {{ chart_phosphorous | safe}}
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

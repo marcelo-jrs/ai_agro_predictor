@@ -28,6 +28,7 @@ class Resultado(models.Model):
     data = models.DateField()
     id_descricao = models.ForeignKey(Descricao, on_delete=models.CASCADE, default=1)
     id_instancia = models.ForeignKey(Instancia, on_delete=models.CASCADE)
+    id_usuario = models.ForeignKey(User, on_delete=models.CASCADE, default=17)
 
 
 class InstanciaCrop(models.Model):
@@ -50,8 +51,9 @@ class DescricaoCrop(models.Model):
 
 class ResultadoCrop(models.Model):
     id_resultado = models.AutoField(primary_key=True)
-    tipo_fertilizante = models.TextField()
+    cultura = models.TextField()
     data = models.DateField(default=date.today)
     id_descricao = models.ForeignKey(DescricaoCrop, on_delete=models.CASCADE, default=1)
     id_instancia = models.ForeignKey(InstanciaCrop, on_delete=models.CASCADE)
+    id_usuario = models.ForeignKey(User, on_delete=models.CASCADE, default=17)
 
