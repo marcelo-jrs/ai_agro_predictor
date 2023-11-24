@@ -277,49 +277,49 @@ def predict_crop(instancia, user):
     result = model.predict([[nitrogenio, potassio, fosforo, temperatura, umidade, ph, chuva]])
 
     if result[0] == 0:
-        cultura = 'apple'
+        cultura = 'maçã'
     elif result[0] ==1:
         cultura = 'banana'
     elif result[0] == 2:
-        cultura = 'blackgram'
+        cultura = 'Vigna mungo'
     elif result[0] == 3:
-        cultura = 'chickpea'
+        cultura = 'grão-de-bico'
     elif result[0] == 4:
-        cultura = 'coconut'
+        cultura = 'cocô'
     elif result[0] == 5:
-        cultura = 'coffee'
+        cultura = 'café'
     elif result[0] == 6:
-        cultura = 'cotton'
+        cultura = 'algodão'
     elif result[0] == 7:
-        cultura = 'grapes'
+        cultura = 'uvas'
     elif result[0] == 8:
-        cultura = 'jute'
+        cultura = 'juta'
     elif result[0] == 9:
-        cultura = 'kidneybeans'
+        cultura = 'feijão'
     elif result[0] == 10:
-        cultura = 'lentil'
+        cultura = 'lentilha'
     elif result[0] == 11:
-        cultura = 'maize'
+        cultura = 'milho'
     elif result[0] == 12:
-        cultura = 'mango'
+        cultura = 'manga'
     elif result[0] == 13:
-        cultura = 'mothbeans'
+        cultura = 'naftalina'
     elif result[0] == 14:
-        cultura = 'mungbean'
+        cultura = 'feijão-da-china'
     elif result[0] == 15:
-        cultura = 'muskmelon'
+        cultura = 'melão'
     elif result[0] == 16:
-        cultura = 'orange'
+        cultura = 'laranja'
     elif result[0] == 17:
-        cultura = 'papaya'
+        cultura = 'mamão papaya'
     elif result[0] == 18:
-        cultura = 'pigeonpeas'
+        cultura = 'ervilha da angola'
     elif result[0] == 19:
-        cultura = 'pomegranate'
+        cultura = 'romã'
     elif result[0] == 20:
-        cultura = 'rice'
+        cultura = 'arroz'
     elif result[0] == 21:
-        cultura = 'watermelon'
+        cultura = 'melância'
     
 
     resultado = ResultadoCrop.objects.create(id_instancia=instancia, cultura=cultura, id_usuario=user)
@@ -347,7 +347,7 @@ def create_instancia_crop(request):
             )
             instancia.save()
             resultado = predict_crop(instancia, request.user)
-            return resultCrop(request, resultado.id_resultado, result)
+            return resultCrop(request, resultado.id_resultado)
     else:
         form = ParametrosFormCrop()
         lista_instancia = InstanciaCrop.objects.filter(id_usuario=request.user)

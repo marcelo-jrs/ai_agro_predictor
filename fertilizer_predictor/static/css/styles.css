@@ -1,0 +1,125 @@
+:root {
+    --dark-green: #214E34;
+    --light-green: #B5C9C3;
+    --brown: #664E4C;
+    --white: #fff;
+    --black: #333;
+    --sand: #d3bba8;
+    --dark-sand: #a79587;
+}
+
+nav.navbar.navbar-expand-lg.bg-body-tertiary {
+    background-color: var(--dark-sand) !important;
+}
+
+nav.navbar.navbar-expand-lg.bg-body-tertiary .navbar-brand {
+    color: var(--white) !important;
+}
+
+nav.navbar.navbar-expand-lg.bg-body-tertiary .navbar-nav .nav-item .nav-link{
+    color: var(--white) !important;
+}
+
+body {
+    background-color: var(--sand) !important;
+}
+
+section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 32px;
+}
+
+.welcome-text {
+    display: flex;
+    justify-content: space-between;
+    color: var(--dark-green);
+    padding: 16px;
+    border-radius: 8px;
+}
+
+.welcome-text p {
+    font-size: 20px !important;
+    font-weight: 600 !important;
+}
+
+
+.how-to-use {
+    background-color: var(--dark-green);
+    color: var(--white);
+    padding: 16px;
+    border-radius: 8px;
+}
+
+.tools {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    color: var(--white) !important;
+}
+
+.tools .accordion .accordion-item .accordion-header .accordion-button{
+    background-color: var(--light-green) !important;
+}
+
+.tools .accordion .accordion-item  {
+    border: none;
+}
+
+.card {
+    background-color: var(--dark-sand) !important;
+    border: none !important;
+    width: 700px;
+}
+
+.card h3 {
+    color: var(--white);
+}
+
+.card p {
+    color: var(--white);
+}
+
+.card form .form-label {
+    color: var(--white);
+}
+
+.card .form-text {
+    color: var(--white);
+}
+
+.card a.btn-primary {
+    background-color: var(--dark-green);
+    border: none;
+}
+
+.card a.page-link {
+    background-color: var(--dark-green);
+    border: none;
+}
+
+.card button.btn-primary {
+    background-color: var(--dark-green);
+    border: none;
+}
+
+.btn-group a.btn-primary {
+    background-color: var(--dark-green);
+    border: none;
+}
+
+.btn-group a.btn-primary:first-child {
+    background-color: var(--dark-green);
+    border-right: 1px solid var(--light-green);
+}
+
+.card-body .btn-group a.btn-primary {
+    background-color: var(--dark-green);
+    border: none;
+}
+
+.pagination  a.page-link {
+    background-color: var(--dark-green);
+    border: none;
+}

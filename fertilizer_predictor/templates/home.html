@@ -1,7 +1,63 @@
 {% extends 'partials/menu.html' %}
 
 {% block content %}
+<section class="container mt-5">
+    <div class="welcome-text">
+      <div class="text">
+        <h1>Bem-vindo ao Agro IA, {{ user.first_name }}</h1>
+        <p>Transformando a agricultura com soluções de Machine Learning.</p>
+        <p>Nosso website oferece uma variedade de ferramentas de Machine Learning projetadas especificamente <br> para otimizar a produção agrícola, melhorar a eficiência e maximizar os rendimentos.</p>
+      </div>
+      <div class="image">
+        {% load static %}
+        <img src="{% static 'images/plant.png' %}" alt="" style="width: 150px; height: 150px;">
+      </div>
+    </div>
 
-<h1>HELLO WORLD</h1>
+    <div class="how-to-use">
+        <h2>Como Usar</h2>
+        <p>Descubra como é fácil utilizar nossas ferramentas. Basta seguir estes passos simples:</p>
+        <ul>
+            <li>Escolha a ferramenta que deseja utilizar</li>
+            <li>Insira os parâmetros necessários</li>
+            <li>Gere o resultado e veja as análises geradas especificamente para a sua recomendação</li>
+        </ul>
+    </div>
+    <div class="tools">
+        <h2>Ferramentas Disponíveis</h2>
+        <div class="accordion" id="accordionExample">
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                  Recomendação de Fertilizantes
+                </button>
+              </h2>
+              <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                  A Recomendação de Fertilizantes foi desenvolvida para fornecer aos agricultores uma abordagem personalizada e 
+                  eficiente para otimizar o uso de fertilizantes em suas culturas. Esta ferramenta utiliza algoritmos de machine 
+                  learning para analisar uma variedade de dados, incluindo características do solo, do ambiente e requisitos específicos de cada cultura.
+                </div>
+              </div>
+            </div>
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                    Recomendação de Culturas
+                </button>
+              </h2>
+              <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                  Recomendação de Plantações utiliza algoritmos de Machine Learning para analisar uma variedade de fatores e fornecer sugestões personalizadas sobre quais culturas são mais adequadas para o seu terreno. Com base em dados como a composição do solo, histórico climático e etc, esta ferramenta oferece recomendações precisas e otimizadas para maximizar o rendimento da sua colheita.
+                </div>
+              </div>
+            </div>
+          </div>
+    </div>
+    <footer>
+        <p>&copy; 2023 Unifil.</p>
+    </footer>
+</section>
+
 
 {% endblock %}
